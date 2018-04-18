@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.mabl.integration.jenkins.domain.ApiKeyLookupResult;
 import com.mabl.integration.jenkins.domain.CreateDeploymentPayload;
 import com.mabl.integration.jenkins.domain.CreateDeploymentResult;
 import com.mabl.integration.jenkins.domain.ExecutionResult;
@@ -54,6 +55,7 @@ public class MablRestApiClientImpl implements MablRestApiClient {
     static final String REST_API_USERNAME_PLACEHOLDER = "key";
     static final String DEPLOYMENT_TRIGGER_ENDPOINT = "/events/deployment";
     static final String DEPLOYMENT_RESULT_ENDPOINT_TEMPLATE = "/execution/result/event/%s";
+    static final String API_KEY_LOOKUP_ENDPOINT_TEMPLATE = "/apiKeys/%s";
 
     private static final Header JSON_TYPE_HEADER = new BasicHeader("Content-Type", "application/json");
 
@@ -98,6 +100,11 @@ public class MablRestApiClientImpl implements MablRestApiClient {
         final String encoded = Base64.encode((REST_API_USERNAME_PLACEHOLDER + ":" + restApiKey)
                 .getBytes(Charset.forName("UTF-8")));
         return new BasicHeader("Authorization", "Basic " + encoded);
+    }
+
+    @Override
+    public ApiKeyLookupResult lookupApiKey(String restApiKey) throws IOException, MablSystemError {
+        return null;
     }
 
     @Override
